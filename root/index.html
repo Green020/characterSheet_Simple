@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="scripting.js"></script>
+
+<head>
+    <link rel="stylesheet" href="styling.css">
+    <title>Dungeon Manifest Character Sheet Version A00.00.01</title>
+</head>
+
+<body onload="SetupCharacterSheetOptions()">
+    <div class="characterSheetBackground">
+        <div class="characterSheetHeader">
+            <div class="headerColumns">
+                <div class="avatarContainer">
+                    <div class="avatarImageCard">
+                        <img id="avatarImage" src="svg/ImagePlaceholderPNG.png">
+                        <label for="avatarUpload" class="baseBTN">Upload Avatar</label>
+                        <input id="avatarUpload" type="file" accept="image/*" onchange="uploadAvatar()" style="display: none;">
+                    </div>
+                </div>
+                <table>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr>
+                                    <td style="width: 100%;">
+                                        <label for="characterNameInput"><b>Character Name:</b></label>
+                                        <div class="custom_input">
+                                            <input id="characterNameInput" class="inputStyling" type="text" placeholder="Character Name">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <label for="characterLevelSelect"><b>Level</b></label>
+                                        <select id="characterLevelSelect"></select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="characterRaceSelector"><b>Race:</b></label>
+                            <select id="characterRaceSelector" onchange="SetRaceBonusInformation()"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="characterClassSelector"><b>Class:</b></label>
+                            <select id="characterClassSelector" onchange="PopulateProfessions();"></select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="characterProfessionSelector"><b>Profession:</b></label>
+                            <select id="characterProfessionSelector" disabled></select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr class="dividerBar">
+        <div class="characterSheetBody" id="characterSheetStatBody">
+            <div>
+                <table class="characterInfoTable">
+                    <thead>
+                        <tr>
+                            <th>Strength</th>
+                            <th>Dexterity</th>
+                            <th>Constitution</th>
+                            <th>Intelligence</th>
+                            <th>Wisdom</th>
+                            <th>Charisma</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="textBoxStyle_One">
+                                <select id="strengthStatSelect" onchange="ChangeMod('STR')"></select>
+                            </td>
+                            <td class="textBoxStyle_One">
+                                <select id="dexterityStatSelect" onchange="ChangeMod('DEX')"></select>
+                            </td>
+                            <td class="textBoxStyle_One">
+                                <select id="constitutionStatSelect" onchange="ChangeMod('CON')"></select>
+                            </td>
+                            <td class="textBoxStyle_One">
+                                <select id="intelligenceStatSelect" onchange="ChangeMod('INT')"></select>
+                            </td>
+                            <td class="textBoxStyle_One">
+                                <select id="wisdomStatSelect" onchange="ChangeMod('WIS')"></select>
+                            </td>
+                            <td class="textBoxStyle_One">
+                                <select id="charismaStatSelect" onchange="ChangeMod('CHA')"></select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="textBoxStyle_One" id="strengthMod">MOD</span></td>
+                            <td><span class="textBoxStyle_One" id="dexterityMod">MOD</span></td>
+                            <td><span class="textBoxStyle_One" id="constitutionMod">MOD</span></td>
+                            <td><span class="textBoxStyle_One" id="intelligenceMod">MOD</span></td>
+                            <td><span class="textBoxStyle_One" id="wisdomMod">MOD</span></td>
+                            <td><span class="textBoxStyle_One" id="charismaMod">MOD</span></td>
+                        </tr>
+                    </tbody>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="characterSheetBody" id="characterSheetRaceInformationBody">
+            <table class="simpleTable">
+                <tr>
+                    <th>Racial Traits & Guides</th>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <th>Base Racial Bonuses</th>
+                                <td><span class="textBoxStyle_Two" id="baseRacialBonuses">You Should Not See This</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Race Specific Bonuses</th>
+                                <td><span class="textBoxStyle_Two" id="raceSpecificBonuses">You Should Not See This</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="characterSheetBody" id="characterSheetClassInformationBody">
+            <table class="simpleTable">
+                <tr>
+                    <th>Class Information & Guides</th>
+                </tr>
+                <tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <th><span class="textBoxStyle_Two" id="classSpecificInformationTitle">You Should Not See This</span></th>
+                                <td style="width:100%;"><span class="textBoxStyle_Two" id="classSpecificInformationBio">You Should Not See This</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="characterSheetBody" id="characterSheetRaceBonusesBody">
+            <div class="twoColumns_6040">
+                <table class="simpleTable">
+                    <thead>
+                        <tr>
+                            <th>Actions Available During Combat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table class>
+                                    <tr>
+                                        <th>Melee Attack</th>
+                                        <td><b>Check Weapon Description</b></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Spell Attack</th>
+                                        <td><b>Check Spell Description</b></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Help, Grapple, Shove, Dash, Disengage, Dodge & Hide</th>
+                                        <td><b>2 Stamina</b></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gain a Reaction</th>
+                                        <td><b>2 Stamina</b></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gain a Reaction</th>
+                                        <td><b>2 Stamina</b></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                    </tr>
+                </table>
+                <table class="characterInfoTable">
+                    <tr>
+                        <th>Armor Class</th>
+                        <td>
+                            <div class="custom_input">
+                                <input id="armorClassInput" class="inputStyling" type="text" placeholder="XXXX">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Health</th>
+                        <td>
+                            <div class="custom_input">
+                                <input id="healthInput" class="inputStyling" type="text" placeholder="XXXX">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Mana / Aura</th>
+                        <td>
+                            <div class="custom_input">
+                                <input id="manaInput" class="inputStyling" type="text" placeholder="XXXX">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Stamina</th>
+                        <td>
+                            <div class="custom_input">
+                                <input id="staminaInput" class="inputStyling" type="text" placeholder="XXXX">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Movement</th>
+                        <td>
+                            <div class="custom_input">
+                                <input id="movementInput" class="inputStyling" type="text" placeholder="XXXX">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="characterSheetBody" id="characterSheetSkillsAndNotesBody">
+            <div>
+                <table class="characterInfoTable">
+                    <tr>
+                        <th>Feats & Skills</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="custom_input">
+                                <textarea id="characterSkills" class="textAreaStyle_One"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="characterInfoTable">
+                    <tr>
+                        <th>Notes</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="custom_input">
+                                <textarea id="characterNotes" class="textAreaStyle_One"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr class="dividerBar">
+        <div class="custom_input">
+            <textarea id="loadTextFile" class="textAreaStyle_One"></textarea>
+        </div>        
+        <div class="characterSheetFooter">
+            <div class="flex-container">
+                <div class="flex-column">
+                    <label for="importCharacterSheetINPUT" class="baseBTN">Import Character Sheet</label>
+                    <input id="importCharacterSheetINPUT" type="file" accept="file/txt" onchange="ImportCharacterSheet(event)" style="display: none;">
+                </div>
+                <div class="flex-column">
+                    <label for="exportCharacterSheetBTN" class="baseBTN">Export Character Sheet</label>
+                    <input id="exportCharacterSheetBTN" type="button" onclick="ExportCharacterSheet()"" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
