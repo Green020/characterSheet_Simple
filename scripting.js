@@ -1,4 +1,6 @@
 /* ----- Variables & Arrays ----- */
+var classHPDie = -1;
+
 var characterClasses = [
     { value: '-999', label: 'Select a Class' },
     { value: 'Fighter', label: 'Fighter' },
@@ -470,6 +472,7 @@ function PopulateProfessions() {
             });
             professionSelect.disabled = false;
             professionSelect.value = '-999';
+            classHPDie = 10;
             break;
         case 'Rogue':
             rogueProfessions.forEach(option => {
@@ -477,6 +480,7 @@ function PopulateProfessions() {
             });
             professionSelect.disabled = false;
             professionSelect.value = '-999';
+            classHPDie = 8;
             break;
         case 'Pugilist':
             pugilistProfessions.forEach(option => {
@@ -484,6 +488,7 @@ function PopulateProfessions() {
             });
             professionSelect.disabled = false;
             professionSelect.value = '-999';
+            classHPDie = 8;
             break;
         case 'Cleric':
             clericProfessions.forEach(option => {
@@ -491,6 +496,7 @@ function PopulateProfessions() {
             });
             professionSelect.disabled = false;
             professionSelect.value = '-999';
+            classHPDie = 8;
             break;
         case 'Mage':
             mageProfessions.forEach(option => {
@@ -498,6 +504,7 @@ function PopulateProfessions() {
             });
             professionSelect.disabled = false;
             professionSelect.value = '-999';
+            classHPDie = 6;
             break;
         case 'Shaman':
             shamanProfessions.forEach(option => {
@@ -505,6 +512,7 @@ function PopulateProfessions() {
             });
             professionSelect.disabled = false;
             professionSelect.value = '-999';
+            classHPDie = 6;
             break;
     }
 
@@ -660,4 +668,38 @@ function ExportCharacterSheet() {
     link.click();
     document.body.removeChild(link);
 
+}
+
+function SetHealth(roll){
+    var maxHP = document.getElementById('healthInput_MAX');
+    var level = document.getElementById('characterLevelSelect');
+    var result = 0;
+
+    if(classHPDie == -1){
+        document.getElementById('errorBoxOverlay').style.display = 'block'
+        document.getElementById('errorMSGBox').style.display = 'block'
+        document.getElementById('errorMSG').innerHTML = "No Class Selected <br> Please Select a Class & Try Again";
+    }
+    else{ 
+        if(roll == true){
+            for(var i = 0; i < level.value; i++){
+                var tempRoll = Math.floor(Math.random() * classHPDie) + 1;
+                result = result + tempRoll;
+                console.log('Rolled Value:' + result)
+            }
+        }
+        else{
+            for(var i = 0; i < level.value; i++){
+                var tempAVG = Math.ceil(classHPDie / 2);
+                result = result + tempAVG;
+                console.log('Average Value:' + result)
+            }
+        }
+        maxHP.value = result;
+    }
+}
+function CloseErrorMessage() {
+    document.getElementById('errorBoxOverlay').style.display = 'none'
+    document.getElementById('errorMSGBox').style.display = 'none'
+    document.getElementById('errorMSG').innerHTML = "No Class Selected <br> Please Select a Class & Try Again";
 }

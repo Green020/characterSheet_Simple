@@ -4,10 +4,32 @@
 
 <head>
     <link rel="stylesheet" href="styling.css">
-    <title>Dungeon Manifest Character Sheet Version A00.00.01</title>
+    <title>Dungeon Manifest Character Sheet Version A00.00.04</title>
 </head>
 
 <body onload="SetupCharacterSheetOptions()">
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <span>
+            <strong>WARNING:</strong> 
+            <br>
+            <b>This is just for creating a character at any level and is not used for actual gameplay.</b>
+            <br>
+            <b>This is only Version A00.00.04 and you may encounter bugs or incomplete operations.</b>
+        </span>
+    </div>
+
+    <div id="errorBoxOverlay" class="overlayBox">
+        <div id="errorMSGBox" class="alertBox">
+            <span id="errorMSG">NO ERROR MESSAGE SET</span>
+            <br>
+            <div style="padding-top: 15px;">
+                <label for="closeErrorMSG" class="baseBTN">Close Error Message</label>
+                <input id="closeErrorMSG" type="button" onclick="CloseErrorMessage()"" style="display: none;">
+            </div>
+        </div>
+    </div>
+
     <div class="characterSheetBackground">
         <div class="characterSheetHeader">
             <div class="headerColumns">
@@ -191,8 +213,18 @@
                                 <input id="armorClass" class="inputStyling_Three" type="text" placeholder="XXXX">
                             </div>
                         </th>
-                        <th></th>
-                        <th></th>
+                        <th>
+                            <label for="rollHealthBTN" class="baseBTN">ROLL HP</label>
+                            <div class="custom_input">
+                                <input id="rollHealthBTN" type="button" onclick="SetHealth(true)" style="display: none;">
+                            </div>
+                        </th>
+                        <th>
+                            <label for="averageHealthBTN" class="baseBTN">AVG HP</label>
+                            <div class="custom_input">
+                                <input id="averageHealthBTN" type="button" onclick="SetHealth(false)" style="display: none;">
+                            </div>
+                        </th>
                     </tr>
                     <tr>
                         <th>Health</th>
@@ -203,7 +235,7 @@
                         </td>
                         <td>
                             <div class="custom_input">
-                                <input id="healthInput_MAX" class="inputStyling" type="text" placeholder="XXXX">
+                                <input id="healthInput_MAX" class="inputStyling" type="text" placeholder="XXXX" disabled>
                             </div>
                         </td>
                     </tr>
