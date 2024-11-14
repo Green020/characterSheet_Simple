@@ -315,7 +315,9 @@ function SetupCharacterSheetOptions() {
         + '<br><br>'
         + '1. Choose One: Give Two Stats +2/+1 or Three Stats +1/+1/+1'
         + '<br><br>'
-        + '2. Pick a Starting Skill';
+        + '2. Pick a Starting Skill'
+        + '<br><br>'
+        + '3. Choose 3 abilities and become proficient in them.';
 
     characterLevels.forEach(option => {
         levelSelect.options[levelSelect.length] = new Option(option.label, option.value);
@@ -505,6 +507,7 @@ function PopulateProfessions() {
             professionSelect.value = '-999';
             break;
     }
+
     SetClassInformation();
 }
 
